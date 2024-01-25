@@ -1,9 +1,8 @@
-
 import 'package:amazon_clone/Screens/sign_in_screen.dart';
 import 'package:amazon_clone/Widgets/text_field_widget.dart';
 import 'package:amazon_clone/Widgets/custom_main_button.dart';
 import 'package:amazon_clone/Utils/data.dart';
-import 'package:amazon_clone/Resources/AuthenticationMethods.dart';
+import 'package:amazon_clone/Resources/authenticationmethods.dart';
 import 'package:flutter/material.dart';
 
 class SignUp extends StatefulWidget {
@@ -38,7 +37,8 @@ class _SignUpState extends State<SignUp> {
         height: screenSize.height,
         width: screenSize.width,
         child: Padding(padding: const EdgeInsets.symmetric(
-         horizontal: 10, vertical: 20,),
+         horizontal: 10, 
+         vertical: 20),
          child: Center(
            child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -51,7 +51,7 @@ class _SignUpState extends State<SignUp> {
                     height: screenSize.height * 0.7,
                     child: FittedBox(
                       child: Container(
-                        height: screenSize.height*0.7,
+                        height: screenSize.height*0.85,
                         width: screenSize.width*0.8,
                         padding: const EdgeInsets.all(25),
                         decoration: BoxDecoration(
@@ -66,10 +66,11 @@ class _SignUpState extends State<SignUp> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Center(
-                            child: Text(                           //heading
+                            child: Text(                          
                               "Sign Up",
                               style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 33),
+                                fontWeight: FontWeight.w500,
+                                 fontSize: 33),
                             ),
                           ),
                           TextFieldwidget(title: "Name",
@@ -95,7 +96,8 @@ class _SignUpState extends State<SignUp> {
                         Align(
                           alignment:Alignment.center ,
                           child: CustomMainButton(child: const Text("Sign In", 
-                          style: TextStyle(letterSpacing:0.6, color: Colors.black),), 
+                          style: TextStyle(letterSpacing:0.6, 
+                          color: Colors.black),), 
                           color: yellowColor, 
                           isloading:  false,
                           onPressed: () async {

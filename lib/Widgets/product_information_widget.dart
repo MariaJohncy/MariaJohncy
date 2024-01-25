@@ -15,9 +15,8 @@ class ProductInformationWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     SizedBox spaceThingy = const SizedBox(
-  height: 7,
-  );
+  SizedBox spaceThingy = const SizedBox(
+  height: 7);
 
     Size screenSize = MediaQuery.of(context).size;
     return SizedBox(
@@ -44,7 +43,8 @@ class ProductInformationWidget extends StatelessWidget {
           alignment: Alignment.centerLeft,
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 7),
-            child: CostWidget(color: Colors.black, cost: cost),
+            child: CostWidget(color: Colors.black, 
+            cost: cost),
           ),
           ),
           spaceThingy,
@@ -54,7 +54,8 @@ class ProductInformationWidget extends StatelessWidget {
               text: TextSpan(
               children: [
               TextSpan
-              ( text: "Sold by",style: TextStyle(
+              ( text: "Sold by",
+              style: TextStyle(
                 color: Colors.grey[700],
                 fontSize: 14,
               ),

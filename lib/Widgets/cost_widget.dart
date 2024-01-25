@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 class CostWidget extends StatelessWidget {
@@ -23,7 +22,7 @@ class CostWidget extends StatelessWidget {
             FontFeature.superscripts(),
           ],
         ),
-        ), //₹ = Ctrl+Alt+4
+        ), //   ₹ = Ctrl+Alt+4
          Text(cost.toInt().toString(),
           style:TextStyle(
             color: color,

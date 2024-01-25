@@ -1,5 +1,4 @@
 import 'package:amazon_clone/Utils/data.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class CategoriesHorizontalListView extends StatelessWidget {

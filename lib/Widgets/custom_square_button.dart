@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class CustomSquareutton extends StatelessWidget {
+class CustomSquareButton extends StatelessWidget {
   final Widget child;
   final VoidCallback onPressed;
   final Color color;
   final double dimension;
 
-  const CustomSquareutton({super.key,
+  const CustomSquareButton({super.key,
   required this.child,
   required this.onPressed,
   required this.color,
@@ -24,7 +24,8 @@ class CustomSquareutton extends StatelessWidget {
           color: color,
           shape:RoundedRectangleBorder(
           side: const BorderSide(
-            color: Colors.grey,width: 1,
+          color: Colors.grey,
+          width: 1,
           ),
          borderRadius: BorderRadius.circular(2),
         ),

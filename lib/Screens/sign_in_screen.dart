@@ -1,11 +1,9 @@
-
 import 'package:amazon_clone/Screens/sign_up_screen.dart';
 import 'package:amazon_clone/Widgets/custom_main_button.dart';
 import 'package:amazon_clone/Utils/data.dart';
 import 'package:amazon_clone/Widgets/text_field_widget.dart';
-import 'package:amazon_clone/Resources/AuthenticationMethods.dart';
+import 'package:amazon_clone/Resources/authenticationmethods.dart';
 import 'package:flutter/material.dart';
-
 import '../Utils/utils.dart';
 
 class SignIn extends StatefulWidget {
@@ -63,9 +61,10 @@ class _SignInState extends State<SignIn> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        "Sign In",                                    //Heading
+                        "Sign In",                                    
                         style: TextStyle(
-                        fontWeight: FontWeight.w500, fontSize: 33),
+                        fontWeight: FontWeight.w500,
+                         fontSize: 33),
                       ),
                       TextFieldwidget(title: "Email",                
                     controller: emailcontroller,
@@ -80,9 +79,9 @@ class _SignInState extends State<SignIn> {
                     Align(
                       alignment:Alignment.center ,
                       child:CustomMainButton(
-                        child: Text("Sign In", 
+                        child: const Text("Sign In", 
                       style: TextStyle(
-                      letterSpacing:0.6, 
+                      letterSpacing:0.5, 
                       color: Colors.black),
                       ), 
                       color: yellowColor,                                      //yellow button sign in
@@ -91,7 +90,7 @@ class _SignInState extends State<SignIn> {
                         setState(() {
                           isloading = false;
                         });
-                       String output = await authenticationMethods.Sign_in(
+                       String output = await authenticationMethods.SignIn(
                           email: emailcontroller.text, password: passwordcontroller.text);
                           setState(() {
                             isloading = isloading;                              //loading procedure
@@ -129,7 +128,7 @@ class _SignInState extends State<SignIn> {
                       ),
                     ],
                   ),
-                    CustomMainButton(child:Text(
+                    CustomMainButton(child:const Text(
                       "Create an Amazon account",
                     style: TextStyle(
                       letterSpacing: 0.6,
@@ -138,7 +137,8 @@ class _SignInState extends State<SignIn> {
                      ),
         color: Colors.grey[400]!,
          isloading: false, onPressed: (){
-          Navigator.pushReplacement(context,MaterialPageRoute(builder:(context){
+          Navigator.pushReplacement(context,
+          MaterialPageRoute(builder:(context){
             return const SignUp();
           }),
           );

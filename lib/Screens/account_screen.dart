@@ -1,9 +1,10 @@
 import 'package:amazon_clone/Model/user_detials_model.dart';
 import 'package:amazon_clone/Providers/user_detials_provider.dart';
+import 'package:amazon_clone/Screens/sell_screen.dart';
 import 'package:amazon_clone/Widgets/custom_main_button.dart';
 import 'package:amazon_clone/Widgets/product_showcase_list_view.dart';
 import 'package:amazon_clone/Utils/data.dart';
-import 'package:amazon_clone/Widgets/account_screen_bar_widget.dart';
+import 'package:amazon_clone/Widgets/Account_screen_App_Bar_Widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,17 +21,17 @@ class _AccountScreenState extends State<AccountScreen> {
     Size screenSize = MediaQuery.sizeOf(context);
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AccountSearchBarWidget(),
+      appBar: const AccountScreenAppBar(),
       body: SingleChildScrollView(
         child: SizedBox(
           height: screenSize.height - (kAppBarHeight / 2),
           width: screenSize.width,
           child: Column(children: [
-            IntroductionAccountWidgetScreen(),
+            const IntroductionAccountWidgetScreen(),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: CustomMainButton(
-                  child: Text(
+                  child: const Text(
                     "Sign Out",
                     style: TextStyle(
                       color: Colors.black,
@@ -43,7 +44,7 @@ class _AccountScreenState extends State<AccountScreen> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: CustomMainButton(
-                  child: Text(
+                  child: const Text(
                     "Sell",
                     style: TextStyle(
                       color: Colors.black,
@@ -51,7 +52,10 @@ class _AccountScreenState extends State<AccountScreen> {
                   ),
                   color: yellowColor,
                   isloading: false,
-                  onPressed: () {}),
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(
+                      builder:(context)=>const SellScreen()));
+                  }),
             ),
             ProductShowCaseListView(
                 title: "Your Orders", children: testChildren),
@@ -80,8 +84,8 @@ class _AccountScreenState extends State<AccountScreen> {
                         ),
                       ),
                       subtitle: const Text("Address : Somewhere on earth"),
-                      trailing:
-                          IconButton(onPressed: () {}, icon: Icon(Icons.check)),
+                      trailing: IconButton(
+                          onPressed: () {}, icon: const Icon(Icons.check)),
                     );
                   }),
             ),
@@ -100,7 +104,7 @@ class IntroductionAccountWidgetScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     UserDetialsModel userDetialsModel =
-        Provider.of<userDetiallsProvider>(context).userDetials;
+        Provider.of<userDetialsProvider>(context).userDetials;
     return Container(
       height: kAppBarHeight / 2,
       decoration: const BoxDecoration(
@@ -138,7 +142,7 @@ class IntroductionAccountWidgetScreen extends StatelessWidget {
                       ),
                     ),
                     TextSpan(
-                      text: "${userDetialsModel.name}",
+                      text: userDetialsModel.name,
                       style: TextStyle(
                         color: Colors.grey[800],
                         fontSize: 2,
@@ -149,12 +153,12 @@ class IntroductionAccountWidgetScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(
                 right: 20,
               ),
             ),
-            CircleAvatar(
+            const CircleAvatar(
               backgroundImage: NetworkImage(
                 "https://m.media-amazon.com/images/I/116KbsvwCRL._SX90_SY90_.png",
               ),

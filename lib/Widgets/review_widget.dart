@@ -4,7 +4,7 @@ import 'package:amazon_clone/Widgets/rating_star_widget.dart';
 import 'package:flutter/material.dart';
 
 class ReviewWidget extends StatelessWidget {
-  final reviewModel review;
+  final ReviewModel review;
   const ReviewWidget({super.key,
   required this.review
   });

@@ -14,7 +14,7 @@ class UserDetialBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
-    UserDetialsModel userDetials = Provider.of<userDetiallsProvider>(context).userDetials;
+    UserDetialsModel userDetials = Provider.of<userDetialsProvider>(context).userDetials;
     return Positioned(
       top: -offset / 3,
       child: Container(

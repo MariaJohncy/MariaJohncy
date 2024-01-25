@@ -1,8 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:amazon_clone/Screens/sign_in_screen.dart';
+import 'package:amazon_clone/Model/user_detials_model.dart';
 import 'package:amazon_clone/Resources/cloudfirestore_methods.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../Model/user_detials_model.dart';
 
 class AuthenticationMethods{
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
@@ -34,7 +32,7 @@ class AuthenticationMethods{
   return output;
 }
 
-Future <String> Sign_in ({
+Future <String> SignIn ({
   required String email,
   required String password}) async{
   email.trim();

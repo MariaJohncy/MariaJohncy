@@ -3,6 +3,7 @@ import 'package:amazon_clone/Screens/search_screen.dart';
 import 'package:amazon_clone/Utils/data.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class SearchBarWidget extends StatelessWidget implements PreferredSizeWidget{ //with => implements
   final bool isReadOnly;
   final bool hasBackButton;
@@ -78,7 +79,8 @@ class SearchBarWidget extends StatelessWidget implements PreferredSizeWidget{ //
                ),
          ),
       ),
-      IconButton(onPressed: (){}, icon: const Icon(
+      IconButton(onPressed: (){},
+       icon: const Icon(
         Icons.mic_none_outlined),
       ),
     ],  

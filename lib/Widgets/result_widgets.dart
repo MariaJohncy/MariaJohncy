@@ -31,7 +31,7 @@ class ResultWidget extends StatelessWidget {
                 product.productName,
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: 10),
+                style: const TextStyle(fontSize: 10),
               ),
             ),
             Padding(
