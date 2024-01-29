@@ -1,3 +1,4 @@
+import 'package:amazon_clone/Providers/user_detials_provider.dart';
 import 'package:amazon_clone/Resources/cloudfirestore_methods.dart';
 import 'package:amazon_clone/Utils/utils.dart';
 import 'package:amazon_clone/Widgets/custom_main_button.dart';
@@ -9,6 +10,7 @@ import 'package:amazon_clone/Widgets/search_bar_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -61,7 +63,9 @@ class _CartScreenState extends State<CartScreen> {
                         color: yellowColor,
                        isloading: false,
                        onPressed: ()async{
-                        await CloudFirestoreClass().buyAllItemsInCart();
+                        await CloudFirestoreClass().buyAllItemsInCart(
+                          userDetials: 
+                          Provider.of<userDetialsProvider>(context,listen: false).userDetials);
                         utils().showSnackbar(
                           context: context, content: "Done");
                        }); 

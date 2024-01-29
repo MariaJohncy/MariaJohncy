@@ -1,3 +1,5 @@
+import 'package:amazon_clone/Model/order_request_model.dart';
+import 'package:amazon_clone/Model/product_model.dart';
 import 'package:amazon_clone/Model/user_detials_model.dart';
 import 'package:amazon_clone/Providers/user_detials_provider.dart';
 import 'package:amazon_clone/Screens/sell_screen.dart';
@@ -5,6 +7,9 @@ import 'package:amazon_clone/Widgets/custom_main_button.dart';
 import 'package:amazon_clone/Widgets/product_showcase_list_view.dart';
 import 'package:amazon_clone/Utils/data.dart';
 import 'package:amazon_clone/Widgets/Account_screen_App_Bar_Widget.dart';
+import 'package:amazon_clone/Widgets/simple_product_widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -57,8 +62,28 @@ class _AccountScreenState extends State<AccountScreen> {
                       builder:(context)=>const SellScreen()));
                   }),
             ),
-            ProductShowCaseListView(
-                title: "Your Orders", children: testChildren),
+             FutureBuilder(
+                  future: FirebaseFirestore.instance
+                      .collection("users")
+                      .doc(FirebaseAuth.instance.currentUser!.uid)
+                      .collection("orders")
+                      .get(),
+                  builder: (context,
+                      AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                          snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Container();
+                    } else {
+                      List<Widget> children = [];
+                      for (int i = 0; i < snapshot.data!.docs.length; i++) {
+                        ProductModel model = ProductModel.getModelFromJson(
+                            json: snapshot.data!.docs[i].data());
+                        children.add(SimpleProductWidget(productModel: model));
+                      }
+               return ProductShowCaseListView(
+                title: "Your Orders", children: testChildren);
+                    }
+                    }),
             const Padding(
               padding: EdgeInsets.all(15),
               child: Align(
@@ -73,29 +98,35 @@ class _AccountScreenState extends State<AccountScreen> {
               ),
             ),
             Expanded(
-              child: ListView.builder(
-                  itemCount: 5,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      title: const Text(
-                        "Order : Black Shoe",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      subtitle: const Text("Address : Somewhere on earth"),
-                      trailing: IconButton(
-                          onPressed: () {}, icon: const Icon(Icons.check)),
-                    );
-                  }),
+              child: StreamBuilder(stream:
+             FirebaseFirestore.instance
+              .collection("users")
+              .doc(FirebaseAuth.instance.currentUser!.uid)
+              .collection("orderRequests")
+              .snapshots(),
+              builder: 
+              (context,
+              AsyncSnapshot<QuerySnapshot<Map<String,dynamic>>>snapshot){
+                if (snapshot.connectionState == ConnectionState.waiting){
+                  return Container();
+                } else {
+                 return ListView.builder(
+                    itemCount: snapshot.data!.docs.hashCode,
+                  itemBuilder: (context,index){
+                    OrderRequestModel model = OrderRequestModel.getModelFromJson(json: snapshot.data!.docs[index].data());
+                  }
+                  );
+                }
+              }
+              ),
+              
             ),
           ]),
-        ),
-      ),
-    );
-  }
-}
-
+          ),
+          ),
+          );
+                    }
+                  }
 class IntroductionAccountWidgetScreen extends StatelessWidget {
   const IntroductionAccountWidgetScreen({
     super.key,
@@ -135,7 +166,7 @@ class IntroductionAccountWidgetScreen extends StatelessWidget {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text: "Hello, ",
+                      text: " Hello, ",
                       style: TextStyle(
                         color: Colors.grey[800],
                         fontSize: 27,

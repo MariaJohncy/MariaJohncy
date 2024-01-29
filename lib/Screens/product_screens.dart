@@ -1,5 +1,6 @@
 import 'package:amazon_clone/Model/product_model.dart';
 import 'package:amazon_clone/Model/review_model.dart';
+import 'package:amazon_clone/Providers/user_detials_provider.dart';
 import 'package:amazon_clone/Resources/cloudfirestore_methods.dart';
 //import 'package:amazon_clone/Model/user_detials_model.dart';
 import 'package:amazon_clone/Utils/data.dart';
@@ -14,6 +15,7 @@ import 'package:amazon_clone/Widgets/review_widget.dart';
 import 'package:amazon_clone/Widgets/search_bar_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProductScreen extends StatefulWidget {
   final ProductModel productModel;
@@ -86,7 +88,10 @@ class _ProductScreenState extends State<ProductScreen> {
                  color: Colors.orange,
                   isloading: false,
                    onPressed: ()async{
-                    CloudFirestoreClass().addProductToOrders(model:widget.productModel);
+                    CloudFirestoreClass().addProductToOrders(
+                    model:widget.productModel,
+                    userDetials:
+                    Provider.of<userDetialsProvider>(context,listen: false).userDetials);
                    }),
                    spaceThingy,
                    CustomMainButton(child: 

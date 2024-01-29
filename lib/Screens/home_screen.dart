@@ -48,10 +48,10 @@ class _HomeScreenState extends State<HomeScreen> {
    print("everything is done");
 
    setState(() {
-     discount70 != temp70;
-     discount60 != temp60;
-     discount50 != temp50;
-     discount0 != temp0;
+     discount70 = temp70;
+     discount60 = temp60;
+     discount50 = temp50;
+     discount0 = temp0;
    });
    }
 

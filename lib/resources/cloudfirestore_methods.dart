@@ -1,6 +1,8 @@
 import 'dart:typed_data';
+import 'package:amazon_clone/Model/order_request_model.dart';
 import 'package:amazon_clone/Model/product_model.dart';
 import 'package:amazon_clone/Model/review_model.dart';
+import 'package:amazon_clone/Providers/user_detials_provider.dart';
 import 'package:amazon_clone/Utils/utils.dart';
 import 'package:amazon_clone/Widgets/simple_product_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -128,7 +130,7 @@ class CloudFirestoreClass {
    .delete();
    }
 
-   Future buyAllItemsInCart() async {
+   Future buyAllItemsInCart({ required UserDetialsModel userDetials}) async {
   QuerySnapshot<Map<String,dynamic>> snapshot = await firebaseFirestore
    .collection("Users")
    .doc(firebaseAuth.currentUser!.uid)
@@ -138,11 +140,12 @@ class CloudFirestoreClass {
    for (int i = 0; i<snapshot.docs.length; i++){
     ProductModel model = ProductModel
     .getModelFromJson(json: snapshot.docs[i].data());
-    addProductToOrders(model: model);
+    addProductToOrders(model: model, userDetials: userDetials);
+    await deleteProductFromCart(uid: model.uid);
    }
    }
 
-   Future addProductToOrders({required ProductModel model}) async {
+   Future addProductToOrders({required ProductModel model, required UserDetialsModel userDetials}) async {
     await firebaseFirestore
     .collection("users")
     .doc(firebaseAuth.currentUser!.uid)
@@ -150,4 +153,15 @@ class CloudFirestoreClass {
     .add(model.getJson());
     await deleteProductFromCart(uid: model.uid);
    }
+  Future sendOrderRequest ({required ProductModel model, required UserDetialsModel userDetials}) async {
+  OrderRequestModel orderRequestModel = OrderRequestModel(
+    orderName: model.productName,
+     buyersAddress: userDetials.address);
+     await firebaseFirestore
+     .collection("users")
+     .doc(model.sellerUid)
+     .collection("orderRequests")
+     .add(orderRequestModel.getJson());
+  await sendOrderRequest(model: model, userDetials: userDetials);
+  }
 }

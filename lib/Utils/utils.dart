@@ -19,7 +19,7 @@ class utils {
             topRight: Radius.circular(10),
           ),
         ),
-        content: Row(
+        content: Row(   
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(content),
