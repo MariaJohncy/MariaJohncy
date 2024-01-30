@@ -1,10 +1,10 @@
 import 'package:amazon_clone/Screens/sign_up_screen.dart';
+import 'package:amazon_clone/Utils/utils.dart';
 import 'package:amazon_clone/Widgets/custom_main_button.dart';
 import 'package:amazon_clone/Utils/data.dart';
 import 'package:amazon_clone/Widgets/text_field_widget.dart';
 import 'package:amazon_clone/Resources/authenticationmethods.dart';
 import 'package:flutter/material.dart';
-import '../Utils/utils.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -42,7 +42,7 @@ class _SignInState extends State<SignIn> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image.network(amazonLogo,                  //title logo
+              Image.network(amazonLogo,                  
               height: screenSize.height*0.10,
               ),
                   Container(
@@ -84,7 +84,7 @@ class _SignInState extends State<SignIn> {
                       letterSpacing:0.5, 
                       color: Colors.black),
                       ), 
-                      color: yellowColor,                                      //yellow button sign in
+                      color: yellowColor,                                      
                       isloading:  false,
                       onPressed: () async {
                         setState(() {

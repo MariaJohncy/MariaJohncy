@@ -29,7 +29,8 @@ class Amazonapp extends StatelessWidget {
         title: "Amazon Clone",
        theme: ThemeData.light().copyWith(
         scaffoldBackgroundColor: backgroundColor),
-     home: StreamBuilder(stream: FirebaseAuth.instance.authStateChanges(),
+     home: StreamBuilder(
+      stream: FirebaseAuth.instance.authStateChanges(),
       // ignore: non_constant_identifier_names
       builder: (context, AsyncSnapshot<User?> User){
       if(User.connectionState == ConnectionState.waiting){

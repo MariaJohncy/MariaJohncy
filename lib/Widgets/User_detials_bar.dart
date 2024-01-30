@@ -42,7 +42,7 @@ class UserDetialBar extends StatelessWidget {
               SizedBox(
                 width: screenSize.width*0.7,
                 child: Text(
-                  "Deliever to ${userDetials.name}  -${userDetials.address}",
+                  "Deliever to ${userDetials.name} - ${userDetials.address}",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                    style: TextStyle(

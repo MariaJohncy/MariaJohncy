@@ -1,6 +1,8 @@
 import 'package:amazon_clone/Model/product_model.dart';
+import 'package:amazon_clone/Widgets/loading_widget.dart';
 import 'package:amazon_clone/Widgets/result_widgets.dart';
 import 'package:amazon_clone/Widgets/search_bar_widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class ResultScreen extends StatelessWidget {
@@ -39,29 +41,29 @@ class ResultScreen extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: GridView.builder(
-                itemCount: 9,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  childAspectRatio: 2 / 2.5,
-                  crossAxisSpacing: 1,
-                  mainAxisSpacing: 1,
-                ),
-                itemBuilder: (context, index) {
-                  return ResultWidget(
-                    product: ProductModel(
-                        url:
-                            "https://m.media-amazon.com/images/I/11uufjN3lYL._SX90_SY90_.png",
-                        productName: "Snowyaa aaa aaaa aaaaa aaaaaaaaaa aaaa",
-                        cost: 100,
-                        discount: 0,
-                        uid: "ABCDEFGHIJ",
-                        sellerName: "Fan gurl",
-                        sellerUid: "abcdefghij",
-                        rating: 3,
-                        noOfRating: 1),
+            child: FutureBuilder(
+              future: FirebaseFirestore.instance
+              .collection("products")
+              .where("productMame",isEqualTo: query)
+              .get(),
+              builder: (context,
+              AsyncSnapshot<QuerySnapshot<Map<String,dynamic>>>snapshot){
+                if(snapshot.connectionState == ConnectionState.waiting){
+                  return const LoadingWidget();
+                } else {
+                 return GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3, childAspectRatio: 2 / 3.5), 
+                    itemCount: snapshot.data!.docs.length,
+                  itemBuilder: (context,index){
+                    ProductModel product = ProductModel.getModelFromJson(
+                      json: snapshot.data!.docs[index].data());
+                    return ResultWidget(product: product);
+                  }
                   );
-                }),
+                }
+              }
+              ),
           ),
         ],
       ),

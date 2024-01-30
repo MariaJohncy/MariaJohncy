@@ -1,4 +1,5 @@
 import 'package:amazon_clone/Model/product_model.dart';
+import 'package:amazon_clone/Screens/product_screens.dart';
 import 'package:amazon_clone/Utils/data.dart';
 import 'package:amazon_clone/Widgets/cost_widget.dart';
 import 'package:amazon_clone/Widgets/rating_star_widget.dart';
@@ -12,7 +13,11 @@ class ResultWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder:(context) => ProductScreen(productModel: product),
+        ),
+        );
+      },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 1),
         child: Column(

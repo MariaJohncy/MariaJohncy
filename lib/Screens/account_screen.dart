@@ -44,7 +44,9 @@ class _AccountScreenState extends State<AccountScreen> {
                   ),
                   color: Colors.orange,
                   isloading: false,
-                  onPressed: () {}),
+                  onPressed: () async {
+                   FirebaseAuth.instance.signOut();
+                  }),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -113,20 +115,39 @@ class _AccountScreenState extends State<AccountScreen> {
                  return ListView.builder(
                     itemCount: snapshot.data!.docs.hashCode,
                   itemBuilder: (context,index){
-                    OrderRequestModel model = OrderRequestModel.getModelFromJson(json: snapshot.data!.docs[index].data());
+                    OrderRequestModel model = OrderRequestModel
+                    .getModelFromJson(json: snapshot.data!.docs[index].data());
+                    return ListTile(
+                      title: Text(
+                        "Order:${model.orderName}",
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      subtitle: Text("Address:${model.buyersAddress}"),
+                      trailing: IconButton(
+                        onPressed: ()async{
+                          FirebaseFirestore.instance
+                          .collection("users")
+                          .doc(FirebaseAuth.instance.currentUser!.uid)
+                          .collection("orderRequests")
+                          .doc(snapshot.data!.docs[index].id)
+                          .delete();
+                        },
+                         icon: const Icon(Icons.check)),
+                    );
                   }
                   );
                 }
               }
               ),
-              
             ),
           ]),
           ),
           ),
           );
-                    }
-                  }
+      }
+     }
 class IntroductionAccountWidgetScreen extends StatelessWidget {
   const IntroductionAccountWidgetScreen({
     super.key,
@@ -187,8 +208,7 @@ class IntroductionAccountWidgetScreen extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.only(
                 right: 20,
-              ),
-            ),
+              )),
             const CircleAvatar(
               backgroundImage: NetworkImage(
                 "https://m.media-amazon.com/images/I/116KbsvwCRL._SX90_SY90_.png",
